@@ -1,1160 +1,481 @@
+--[[
+	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
 ]]
-	local ScreenGui = Instance.new("ScreenGui")
-	local main = Instance.new("Frame")
-	local ScriptName = Instance.new("TextLabel")
-	local UICorner = Instance.new("UICorner")
-	local ImageButton = Instance.new("ImageButton")
-	local UICorner_2 = Instance.new("UICorner")
-	local Discord = Instance.new("TextLabel")
-	local UICorner_3 = Instance.new("UICorner")
-	local FOVCircle = Instance.new("TextButton")
-	local UICorner_4 = Instance.new("UICorner")
-	local InfYield = Instance.new("TextButton")
-	local UICorner_5 = Instance.new("UICorner")
-	local FPSBoost = Instance.new("TextButton")
-	local UICorner_6 = Instance.new("UICorner")
-	local Box = Instance.new("TextButton")
-	local UICorner_7 = Instance.new("UICorner")
-	local FOV120 = Instance.new("TextButton")
-	local UICorner_8 = Instance.new("UICorner")
-	local RTX = Instance.new("TextButton")
-	local UICorner_9 = Instance.new("UICorner")
-	local AntiAfk = Instance.new("TextButton")
-	local UICorner_10 = Instance.new("UICorner")
-	local Highlights = Instance.new("TextButton")
-	local UICorner_11 = Instance.new("UICorner")
-	local Aimbot = Instance.new("TextButton")
-	local UICorner_12 = Instance.new("UICorner")
-	local CoreGui = game:GetService("StarterGui")
-CoreGui:SetCore("SendNotification", {
-	Title = "Universal Aimbot";
-	Text = "Script loaded sucsess!";
-	Icon = "rbxassetid://18133329878";
-	Duration = 5;
-})
-	--Properties:
-	ScreenGui.Parent = game.CoreGui
-	ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-	main.Name = "main"
-	main.Parent = ScreenGui
-	main.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	main.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	main.BorderSizePixel = 0
-	main.Position = UDim2.new(0.335686266, 0, 0.282576859, 0)
-	main.Size = UDim2.new(0, 450, 0, 242)
-	main.Active = true
-	main.Draggable = true
-	ScriptName.Name = "ScriptName"
-	ScriptName.Parent = main
-	ScriptName.BackgroundColor3 = Color3.fromRGB(212, 212, 212)
-	ScriptName.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	ScriptName.BorderSizePixel = 0
-	ScriptName.Size = UDim2.new(0, 450, 0, 50)
-	ScriptName.Font = Enum.Font.Unknown
-	ScriptName.Text = "           Universal aimbot | By armengeimsss"
-	ScriptName.TextColor3 = Color3.fromRGB(75, 75, 75)
-	ScriptName.TextScaled = true
-	ScriptName.TextSize = 27.000
-	ScriptName.TextWrapped = true
-	UICorner.CornerRadius = UDim.new(1, 0)
-	UICorner.Parent = ScriptName
-	ImageButton.Parent = main
-	ImageButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	ImageButton.BackgroundTransparency = 1.000
-	ImageButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	ImageButton.BorderSizePixel = 0
-	ImageButton.Position = UDim2.new(0.023866348, 0, 0, 0)
-	ImageButton.Size = UDim2.new(0, 54, 0, 50)
-	ImageButton.Image = "http://www.roblox.com/asset/?id=18133329855"
-	UICorner_2.CornerRadius = UDim.new(0.100000001, 0)
-	UICorner_2.Parent = main
-	Discord.Name = "Discord"
-	Discord.Parent = main
-	Discord.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	Discord.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	Discord.BorderSizePixel = 0
-	Discord.Position = UDim2.new(0.108963214, 0, 0.91613239, 0)
-	Discord.Size = UDim2.new(0, 340, 0, 20)
-	Discord.Font = Enum.Font.SourceSansItalic
-	Discord.Text = "discord.gg/jf4PncZt"
-	Discord.TextColor3 = Color3.fromRGB(207, 207, 207)
-	Discord.TextSize = 20.000
-	UICorner_3.CornerRadius = UDim.new(1, 0)
-	UICorner_3.Parent = Discord
-	FOVCircle.Name = "FOVCircle"
-	FOVCircle.Parent = main
-	FOVCircle.BackgroundColor3 = Color3.fromRGB(234, 234, 234)
-	FOVCircle.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	FOVCircle.BorderSizePixel = 0
-	FOVCircle.Position = UDim2.new(0.352469742, 0, 0.685734928, 0)
-	FOVCircle.Size = UDim2.new(0, 137, 0, 50)
-	FOVCircle.Font = Enum.Font.SourceSansBold
-	FOVCircle.Text = "Fov Circle"
-	FOVCircle.TextColor3 = Color3.fromRGB(100, 100, 100)
-	FOVCircle.TextSize = 22.000
-	FOVCircle.MouseButton1Down:Connect(function()
-		local teamCheck = false
-		local fov = 150
-		local smoothing = 1
-		local RunService = game:GetService("RunService")
-		local FOVring = Drawing.new("Circle")
-		FOVring.Visible = true
-		FOVring.Thickness = 1.5
-		FOVring.Radius = fov
-		FOVring.Transparency = 1
-		FOVring.Color = Color3.fromRGB(255, 255, 255)
-		FOVring.Position = workspace.CurrentCamera.ViewportSize/2
-		local function getClosest(cframe)
-			local ray = Ray.new(cframe.Position, cframe.LookVector).Unit
-			local target = nil
-			local mag = math.huge
-			for i,v in pairs(game.Players:GetPlayers()) do
-				if v.Character and v.Character:FindFirstChild("Head") and v.Character:FindFirstChild("Humanoid") and v.Character:FindFirstChild("HumanoidRootPart") and v ~= game.Players.LocalPlayer and (v.Team ~= game.Players.LocalPlayer.Team or (not teamCheck)) then
-					local magBuf = (v.Character.Head.Position - ray:ClosestPoint(v.Character.Head.Position)).Magnitude
-					if magBuf < mag then mag = magBuf target = v end end end return target end end) UICorner_4.CornerRadius = UDim.new(0.5, 0) UICorner_4.Parent = FOVCircle InfYield.Name = "InfYield" InfYield.Parent = main InfYield.BackgroundColor3 = Color3.fromRGB(234, 234, 234) InfYield.BorderColor3 = Color3.fromRGB(0, 0, 0) InfYield.BorderSizePixel = 0 InfYield.Position = UDim2.new(0.67255342, 0, 0.685734928, 0) InfYield.Size = UDim2.new(0, 137, 0, 50) InfYield.Font = Enum.Font.SourceSansBold InfYield.Text = "Inf Yield" InfYield.TextColor3 = Color3.fromRGB(100, 100, 100) InfYield.TextSize = 22.000 InfYield.MouseButton1Down:Connect(function() loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))() end) UICorner_5.CornerRadius = UDim.new(0.5, 0) UICorner_5.Parent = InfYield FPSBoost.Name = "FPSBoost" FPSBoost.Parent = main FPSBoost.BackgroundColor3 = Color3.fromRGB(234, 234, 234) FPSBoost.BorderColor3 = Color3.fromRGB(0, 0, 0) FPSBoost.BorderSizePixel = 0 FPSBoost.Position = UDim2.new(0.0240179449, 0, 0.685734928, 0) FPSBoost.Size = UDim2.new(0, 137, 0, 50) FPSBoost.Font = Enum.Font.SourceSansBold FPSBoost.Text = "FPS Boost" FPSBoost.TextColor3 = Color3.fromRGB(100, 100, 100) FPSBoost.TextSize = 22.000 FPSBoost.MouseButton1Down:Connect(function() local ToDisable = { Textures = true, VisualEffects = true, Parts = true, Particles = true, Sky = true } local ToEnable = { FullBright = false } local Stuff = {} for _, v in next, game:GetDescendants() do if ToDisable.Parts then if v:IsA("Part") or v:IsA("Union") or v:IsA("BasePart") then v.Material = Enum.Material.SmoothPlastic table.insert(Stuff, 1, v) end end if ToDisable.Particles then if v:IsA("ParticleEmitter") or v:IsA("Smoke") or v:IsA("Explosion") or v:IsA("Sparkles") or v:IsA("Fire") then v.Enabled = false table.insert(Stuff, 1, v) end end if ToDisable.VisualEffects then if v:IsA("BloomEffect") or v:IsA("BlurEffect") or v:IsA("DepthOfFieldEffect") or v:IsA("SunRaysEffect") then v.Enabled = false table.insert(Stuff, 1, v) end end if ToDisable.Textures then if v:IsA("Decal") or v:IsA("Texture") then v.Texture = "" table.insert(Stuff, 1, v) end end if ToDisable.Sky then if v:IsA("Sky") then v.Parent = nil table.insert(Stuff, 1, v) end end end game:GetService("TestService"):Message("Effects Disabler Script : Successfully disabled "..#Stuff.." assets / effects. Settings :") for i, v in next, ToDisable do print(tostring(i)..": "..tostring(v)) end if ToEnable.FullBright then local Lighting = game:GetService("Lighting") Lighting.FogColor = Color3.fromRGB(255, 255, 255) Lighting.FogEnd = math.huge Lighting.FogStart = math.huge Lighting.Ambient = Color3.fromRGB(255, 255, 255) Lighting.Brightness = 5 Lighting.ColorShift_Bottom = Color3.fromRGB(255, 255, 255) Lighting.ColorShift_Top = Color3.fromRGB(255, 255, 255) Lighting.OutdoorAmbient = Color3.fromRGB(255, 255, 255) Lighting.Outlines = true end end) UICorner_6.CornerRadius = UDim.new(0.5, 0) UICorner_6.Parent = FPSBoost Box.Name = "Box" Box.Parent = main Box.BackgroundColor3 = Color3.fromRGB(234, 234, 234) Box.BorderColor3 = Color3.fromRGB(0, 0, 0) Box.BorderSizePixel = 0 Box.Position = UDim2.new(0.0240179449, 0, 0.455658197, 0) Box.Size = UDim2.new(0, 137, 0, 50) Box.Font = Enum.Font.SourceSansBold Box.Text = "Boxes" Box.TextColor3 = Color3.fromRGB(100, 100, 100) Box.TextSize = 22.000 Box.MouseButton1Down:Connect(function() local Settings = { Box_Color = Color3.fromRGB(255, 0, 0), Tracer_Color = Color3.fromRGB(255, 0, 0), Tracer_Thickness = 1, Box_Thickness = 1, Tracer_Origin = "Bottom", -- Middle or Bottom if FollowMouse is on this won't matter... Tracer_FollowMouse = false, Tracers = true } local Team_Check = { TeamCheck = false, -- if TeamColor is on this won't matter... Green = Color3.fromRGB(0, 255, 0), Red = Color3.fromRGB(255, 0, 0) } local TeamColor = true --// SEPARATION local player = game:GetService("Players").LocalPlayer local camera = game:GetService("Workspace").CurrentCamera local mouse = player:GetMouse() local function NewQuad(thickness, color) local quad = Drawing.new("Quad") quad.Visible = false quad.PointA = Vector2.new(0,0) quad.PointB = Vector2.new(0,0) quad.PointC = Vector2.new(0,0) quad.PointD = Vector2.new(0,0) quad.Color = color quad.Filled = false quad.Thickness = thickness quad.Transparency = 1 return quad end local function NewLine(thickness, color) local line = Drawing.new("Line") line.Visible = false line.From = Vector2.new(0, 0) line.To = Vector2.new(0, 0) line.Color = color line.Thickness = thickness line.Transparency = 1 return line end local function Visibility(state, lib) for u, x in pairs(lib) do x.Visible = state end end local function ToColor3(col) --Function to convert, just cuz c; local r = col.r --Red value local g = col.g --Green value local b = col.b --Blue value return Color3.new(r,g,b); --Color3 datatype, made of the RGB inputs end local black = Color3.fromRGB(0, 0 ,0) local function ESP(plr) local library = { --//Tracer and Black Tracer(black border) blacktracer = NewLine(Settings.Tracer_Thickness*2, black), tracer = NewLine(Settings.Tracer_Thickness, Settings.Tracer_Color), --//Box and Black Box(black border) black = NewQuad(Settings.Box_Thickness*2, black), box = NewQuad(Settings.Box_Thickness, Settings.Box_Color), --//Bar and Green Health Bar (part that moves up/down) healthbar = NewLine(3, black), greenhealth = NewLine(1.5, black) } local function Colorize(color) for u, x in pairs(library) do if x ~= library.healthbar and x ~= library.greenhealth and x ~= library.blacktracer and x ~= library.black then x.Color = color end end end local function Updater() local connection connection = game:GetService("RunService").RenderStepped:Connect(function() if plr.Character ~= nil and plr.Character:FindFirstChild("Humanoid") ~= nil and plr.Character:FindFirstChild("HumanoidRootPart") ~= nil and plr.Character.Humanoid.Health > 0 and plr.Character:FindFirstChild("Head") ~= nil then
-						local HumPos, OnScreen = camera:WorldToViewportPoint(plr.Character.HumanoidRootPart.Position)
-						if OnScreen then
-							local head = camera:WorldToViewportPoint(plr.Character.Head.Position)
-							local DistanceY = math.clamp((Vector2.new(head.X, head.Y) - Vector2.new(HumPos.X, HumPos.Y)).magnitude, 2, math.huge)
-							local function Size(item)
-								item.PointA = Vector2.new(HumPos.X + DistanceY, HumPos.Y - DistanceY*2)
-								item.PointB = Vector2.new(HumPos.X - DistanceY, HumPos.Y - DistanceY*2)
-								item.PointC = Vector2.new(HumPos.X - DistanceY, HumPos.Y + DistanceY*2)
-								item.PointD = Vector2.new(HumPos.X + DistanceY, HumPos.Y + DistanceY*2)
-							end
-							Size(library.box)
-							Size(library.black)
-							--// Health Bar
-							local d = (Vector2.new(HumPos.X - DistanceY, HumPos.Y - DistanceY*2) - Vector2.new(HumPos.X - DistanceY, HumPos.Y + DistanceY*2)).magnitude
-							local healthoffset = plr.Character.Humanoid.Health/plr.Character.Humanoid.MaxHealth * d
-							library.greenhealth.From = Vector2.new(HumPos.X - DistanceY - 4, HumPos.Y + DistanceY*2)
-							library.greenhealth.To = Vector2.new(HumPos.X - DistanceY - 4, HumPos.Y + DistanceY*2 - healthoffset)
-							library.healthbar.From = Vector2.new(HumPos.X - DistanceY - 4, HumPos.Y + DistanceY*2)
-							library.healthbar.To = Vector2.new(HumPos.X - DistanceY - 4, HumPos.Y - DistanceY*2)
-							local green = Color3.fromRGB(0, 255, 0)
-							local red = Color3.fromRGB(255, 0, 0)
-							library.greenhealth.Color = red:lerp(green, plr.Character.Humanoid.Health/plr.Character.Humanoid.MaxHealth);
-							if Team_Check.TeamCheck then
-								if plr.TeamColor == player.TeamColor then
-									Colorize(Team_Check.Green)
-								else
-									Colorize(Team_Check.Red)
-								end
-							else
-								library.tracer.Color = Settings.Tracer_Color
-								library.box.Color = Settings.Box_Color
-							end
-							if TeamColor == true then
-								Colorize(plr.TeamColor.Color)
-							end
-							Visibility(true, library)
-						else
-							Visibility(false, library)
-						end
-					else
-						Visibility(false, library)
-						if game.Players:FindFirstChild(plr.Name) == nil then
-							connection:Disconnect()
-						end
-					end
-				end)
-			end
-			coroutine.wrap(Updater)()
-		end
-		for i, v in pairs(game:GetService("Players"):GetPlayers()) do
-			if v.Name ~= player.Name then
-				coroutine.wrap(ESP)(v)
+--[[
+	Made by MrScripts
+	Note: Only things not made by me were the FOV checker and getrandomstring() function
+]]--
+_G.aimDebug = true --FOV Checker is still wonky - Keep this setting on or you can't have FOV checker on
+--Stuff you can customize
+local settings = {
+	Binds = {
+		Aimbot = "f",
+		Hide = "=" --[=] by default but is not required
+	},
+	Aimbot = {
+		FOV = 15, --The smaller the less space to lock on | 15 by default
+		Closest = false, --Targets closest player, otherwise does closest to mouse | False by default
+		HoldKey = true, --False by default
+		TeamCheck = false --False by default
+	},
+	Color = {
+		["CheckboxOff"] = Color3.fromRGB(255, 0, 0), --[255, 0, 0] by default (Red)
+		["CheckboxOn"] = Color3.fromRGB(0, 255, 0), --[0, 255, 0] by default (Green)
+		["Border"] = Color3.fromRGB(235, 115, 17), --[235, 115, 17] by default
+		["Background"] = Color3.fromRGB(30, 30, 30), --[30, 30, 30] by default
+		["Text"] = Color3.fromRGB(255, 255, 255) --[255, 255, 255] by default
+	}
+}
+------------------------------
+----Stuff you don't touch:----
+------------------------------
+local Aimbot_SG = Instance.new("ScreenGui")
+local gPlayers = game:GetService("Players")
+local gPlr = gPlayers.LocalPlayer
+local plr = gPlr.Name
+local gUIS = game:GetService("UserInputService")
+local Camera = workspace.CurrentCamera
+local InputBegan, InputEnded, BindPressed, AimbotStepped
+local gotstring = 1
+local function getrandomstring()
+	gotstring = gotstring+666
+	local str = ""
+	local randomstring = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "g", "k", "l", "m", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
+	"?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?", "`", "$",
+	"0","1","2","3","4","5","6","7","8","9", }
+	local counting123 = 0
+	for i, v in ipairs(randomstring) do
+		counting123 = i
+	end
+	do
+		math.randomseed(tick()+gotstring)
+		for i = 3, math.random(1,100) do
+			math.randomseed(i+tick()+gotstring)
+			local oneortwo = math.random(1,2)
+			if oneortwo == 2 then
+				math.randomseed(i+tick()+gotstring)
+				str = str..""..randomstring[math.random(1, counting123)]
+			else
+				math.randomseed(i+tick()+gotstring)
+				str = str..""..string.upper(randomstring[math.random(1, counting123)])
 			end
 		end
-		game.Players.PlayerAdded:Connect(function(newplr)
-			if newplr.Name ~= player.Name then
-				coroutine.wrap(ESP)(newplr)
-			end
-		end)
-	end)
-	UICorner_7.CornerRadius = UDim.new(0.5, 0)
-	UICorner_7.Parent = Box
-	FOV120.Name = "FOV120"
-	FOV120.Parent = main
-	FOV120.BackgroundColor3 = Color3.fromRGB(234, 234, 234)
-	FOV120.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	FOV120.BorderSizePixel = 0
-	FOV120.Position = UDim2.new(0.352469742, 0, 0.455658197, 0)
-	FOV120.Size = UDim2.new(0, 137, 0, 50)
-	FOV120.Font = Enum.Font.SourceSansBold
-	FOV120.Text = "FOV (120)"
-	FOV120.TextColor3 = Color3.fromRGB(100, 100, 100)
-	FOV120.TextSize = 22.000
-	FOV120.MouseButton1Down:Connect(function()
-		local FovNumber = 120
-		local Camera = workspace.CurrentCamera
-		Camera.FieldOfView = FovNumber
-	end)
-	UICorner_8.CornerRadius = UDim.new(0.5, 0)
-	UICorner_8.Parent = FOV120
-	RTX.Name = "RTX"
-	RTX.Parent = main
-	RTX.BackgroundColor3 = Color3.fromRGB(234, 234, 234)
-	RTX.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	RTX.BorderSizePixel = 0
-	RTX.Position = UDim2.new(0.67255342, 0, 0.455658197, 0)
-	RTX.Size = UDim2.new(0, 137, 0, 50)
-	RTX.Font = Enum.Font.SourceSansBold
-	RTX.Text = "RTX Graphics"
-	RTX.TextColor3 = Color3.fromRGB(100, 100, 100)
-	RTX.TextSize = 22.000
-	RTX.MouseButton1Down:Connect(function()
-		game:GetService("StarterGui"):SetCore("SendNotification", {
-			Title = "RTX GUI";
-			Text = "Made by armengeimsss";
-			Icon = "rbxthumb://type=Asset&id=12361535956&w=150&h=150"})
-		Duration = 16;
-		Duration = 16;
-		local RTXGUI = Instance.new("ScreenGui")
-		local Frame = Instance.new("Frame")
-		local UICorner = Instance.new("UICorner")
-		local Title = Instance.new("TextLabel")
-		local UICorner_2 = Instance.new("UICorner")
-		local Morning = Instance.new("TextButton")
-		local UICorner_3 = Instance.new("UICorner")
-		local Afternoon = Instance.new("TextButton")
-		local UICorner_4 = Instance.new("UICorner")
-		local Evening = Instance.new("TextButton")
-		local UICorner_5 = Instance.new("UICorner")
-		local Close = Instance.new("TextButton")
-		local UICorner_6 = Instance.new("UICorner")
-		local Credits = Instance.new("TextLabel")
-		local UICorner_7 = Instance.new("UICorner")
-		local Night = Instance.new("TextButton")
-		local UICorner_8 = Instance.new("UICorner")
-		local Stop = Instance.new("TextButton")
-		local UICorner_9 = Instance.new("UICorner")
-		local ts = game:GetService("TeleportService")
-		local p = game:GetService("Players").LocalPlayer
-		--Properties:
-		RTXGUI.Name = "RTX GUI"
-		--RTXGUI.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-		RTXGUI.Parent = game:GetService('CoreGui')
-		RTXGUI.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-		Frame.Parent = RTXGUI
-		Frame.BackgroundColor3 = Color3.fromRGB(58, 58, 58)
-		Frame.Position = UDim2.new(0.0811881199, 0, 0.144948751, 0)
-		Frame.Size = UDim2.new(0, 405, 0, 262)
-		UICorner.CornerRadius = UDim.new(0, 15)
-		UICorner.Parent = Frame
-		Title.Name = "Title"
-		Title.Parent = Frame
-		Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		Title.Size = UDim2.new(0, 405, 0, 50)
-		Title.Font = Enum.Font.FredokaOne
-		Title.Text = "RTX GUI"
-		Title.TextColor3 = Color3.fromRGB(0, 0, 0)
-		Title.TextScaled = true
-		Title.TextSize = 14.000
-		Title.TextWrapped = true
-		UICorner_2.CornerRadius = UDim.new(0, 15)
-		UICorner_2.Parent = Title
-		Morning.Name = "Morning"
-		Morning.Parent = Frame
-		Morning.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		Morning.Position = UDim2.new(0.0493827164, 0, 0.22325556, 0)
-		Morning.Size = UDim2.new(0, 170, 0, 50)
-		Morning.Font = Enum.Font.FredokaOne
-		Morning.Text = "Morning"
-		Morning.TextColor3 = Color3.fromRGB(0, 0, 0)
-		Morning.TextSize = 43.000
-		Morning.MouseButton1Click:Connect(function()
-			local Vignette = true -- change to false if you don't want a shadow frame
-			local Lighting = game:GetService("Lighting")
-			local StarterGui = game:GetService("StarterGui")
-			local Bloom = Instance.new("BloomEffect")
-			local Blur = Instance.new("BlurEffect")
-			local ColorCor = Instance.new("ColorCorrectionEffect")
-			local SunRays = Instance.new("SunRaysEffect")
-			local Sky = Instance.new("Sky")
-			local Atm = Instance.new("Atmosphere")
-			for i, v in pairs(Lighting:GetChildren()) do
-				if v then
-					v:Destroy()
-				end
-			end
-			Bloom.Parent = Lighting
-			Blur.Parent = Lighting
-			ColorCor.Parent = Lighting
-			SunRays.Parent = Lighting
-			Sky.Parent = Lighting
-			Atm.Parent = Lighting
-			if Vignette == true then
-				local Gui = Instance.new("ScreenGui")
-				Gui.Parent = StarterGui
-				Gui.IgnoreGuiInset = true
-				local ShadowFrame = Instance.new("ImageLabel")
-				ShadowFrame.Parent = Gui
-				ShadowFrame.AnchorPoint = Vector2.new(0.5,1)
-				ShadowFrame.Position = UDim2.new(0.5,0,1,0)
-				ShadowFrame.Size = UDim2.new(1,0,1.05,0)
-				ShadowFrame.BackgroundTransparency = 1
-				ShadowFrame.Image = "rbxassetid://4576475446"
-				ShadowFrame.ImageTransparency = 0.3
-				ShadowFrame.ZIndex = 10
-			end
-			Bloom.Intensity = 0.3
-			Bloom.Size = 10
-			Bloom.Threshold = 0.8
-			Blur.Size = 5
-			ColorCor.Brightness = 0.1
-			ColorCor.Contrast = 0.5
-			ColorCor.Saturation = -0.3
-			ColorCor.TintColor = Color3.fromRGB(123, 182, 232)
-			SunRays.Intensity = 0.075
-			SunRays.Spread = 0.727
-			Sky.SkyboxBk = "rbxassetid://11832141390"
-			Sky.SkyboxDn = "rbxassetid://11832143153"
-			Sky.SkyboxFt = "rbxassetid://11832140714"
-			Sky.SkyboxLf = "rbxassetid://11832142032"
-			Sky.SkyboxRt = "rbxassetid://11832142403"
-			Sky.SkyboxUp = "rbxassetid://11832185944"
-			Sky.SunAngularSize = 10
-			Lighting.Ambient = Color3.fromRGB(2,2,2)
-			Lighting.Brightness = 2.25
-			Lighting.ColorShift_Bottom = Color3.fromRGB(0,0,0)
-			Lighting.ColorShift_Top = Color3.fromRGB(255, 247, 237)
-			Lighting.EnvironmentDiffuseScale = 0.2
-			Lighting.EnvironmentSpecularScale = 0.2
-			Lighting.GlobalShadows = true
-			Lighting.OutdoorAmbient = Color3.fromRGB(0,0,0)
-			Lighting.ShadowSoftness = 0.2
-			Lighting.ClockTime = 7
-			Lighting.GeographicLatitude = 45
-			Lighting.ExposureCompensation = 0.5
-			Atm.Density = 0.364
-			Atm.Offset = 0.556
-			Atm.Color = Color3.fromRGB(110, 153, 202)
-			Atm.Decay = Color3.fromRGB(13, 105, 172)
-			Atm.Glare = 0.36
-			Atm.Haze = 1.72
-		end)
-		UICorner_3.Parent = Morning
-		Afternoon.Name = "Afternoon"
-		Afternoon.Parent = Frame
-		Afternoon.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		Afternoon.Position = UDim2.new(0.530864179, 0, 0.22325556, 0)
-		Afternoon.Size = UDim2.new(0, 170, 0, 50)
-		Afternoon.Font = Enum.Font.FredokaOne
-		Afternoon.Text = "Afternoon"
-		Afternoon.TextColor3 = Color3.fromRGB(0, 0, 0)
-		Afternoon.TextScaled = true
-		Afternoon.TextSize = 43.000
-		Afternoon.TextWrapped = true
-		Afternoon.MouseButton1Click:Connect(function()
-			local Vignette = true -- change to false if you don't want a shadow frame
-			local Lighting = game:GetService("Lighting")
-			local StarterGui = game:GetService("StarterGui")
-			local Bloom = Instance.new("BloomEffect")
-			local Blur = Instance.new("BlurEffect")
-			local ColorCor = Instance.new("ColorCorrectionEffect")
-			local SunRays = Instance.new("SunRaysEffect")
-			local Sky = Instance.new("Sky")
-			local Atm = Instance.new("Atmosphere")
-			for i, v in pairs(Lighting:GetChildren()) do
-				if v then
-					v:Destroy()
-				end
-			end
-			Bloom.Parent = Lighting
-			Blur.Parent = Lighting
-			ColorCor.Parent = Lighting
-			SunRays.Parent = Lighting
-			Sky.Parent = Lighting
-			Atm.Parent = Lighting
-			if Vignette == true then
-				local Gui = Instance.new("ScreenGui")
-				Gui.Parent = StarterGui
-				Gui.IgnoreGuiInset = true
-				local ShadowFrame = Instance.new("ImageLabel")
-				ShadowFrame.Parent = Gui
-				ShadowFrame.AnchorPoint = Vector2.new(0.5,1)
-				ShadowFrame.Position = UDim2.new(0.5,0,1,0)
-				ShadowFrame.Size = UDim2.new(1,0,1.05,0)
-				ShadowFrame.BackgroundTransparency = 1
-				ShadowFrame.Image = "rbxassetid://4576475446"
-				ShadowFrame.ImageTransparency = 0.3
-				ShadowFrame.ZIndex = 10
-			end
-			Bloom.Intensity = 0.3
-			Bloom.Size = 10
-			Bloom.Threshold = 0.8
-			Blur.Size = 5
-			ColorCor.Brightness = 0.1
-			ColorCor.Contrast = 0.5
-			ColorCor.Saturation = -0.3
-			ColorCor.TintColor = Color3.fromRGB(242, 243, 243)
-			SunRays.Enabled = true
-			SunRays.Intensity = 0.075
-			SunRays.Spread = 0.727
-			Sky.SkyboxBk = "http://www.roblox.com/asset/?id=225469345"
-			Sky.SkyboxDn = "http://www.roblox.com/asset/?id=225469349"
-			Sky.SkyboxFt = "http://www.roblox.com/asset/?id=225469359"
-			Sky.SkyboxLf = "http://www.roblox.com/asset/?id=225469364"
-			Sky.SkyboxRt = "http://www.roblox.com/asset/?id=225469372"
-			Sky.SkyboxUp = "http://www.roblox.com/asset/?id=225469380"
-			Sky.SunAngularSize = 10
-			Lighting.Ambient = Color3.fromRGB(33, 33, 33)
-			Lighting.Brightness = 2.25
-			Lighting.ColorShift_Bottom = Color3.fromRGB(0,0,0)
-			Lighting.ColorShift_Top = Color3.fromRGB(255, 247, 237)
-			Lighting.EnvironmentDiffuseScale = 0.203
-			Lighting.EnvironmentSpecularScale = 0.255
-			Lighting.GlobalShadows = true
-			Lighting.OutdoorAmbient = Color3.fromRGB(51, 54, 67)
-			Lighting.ShadowSoftness = 0.19
-			Lighting.ClockTime = 10
-			Lighting.GeographicLatitude = -15.12
-			Lighting.ExposureCompensation = 0.85
-			Atm.Density = 0.364
-			Atm.Offset = 0.556
-			Atm.Color = Color3.fromRGB(175, 221, 255)
-			Atm.Decay = Color3.fromRGB(13, 105, 172)
-			Atm.Glare = 0.36
-			Atm.Haze = 1.72
-		end)
-		UICorner_4.Parent = Afternoon
-		Evening.Name = "Evening"
-		Evening.Parent = Frame
-		Evening.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		Evening.Position = UDim2.new(0.0493827164, 0, 0.459108353, 0)
-		Evening.Size = UDim2.new(0, 170, 0, 50)
-		Evening.Font = Enum.Font.FredokaOne
-		Evening.Text = "Evening"
-		Evening.TextColor3 = Color3.fromRGB(0, 0, 0)
-		Evening.TextSize = 43.000
-		Evening.MouseButton1Click:Connect(function()
-			local Vignette = true -- change to false if you don't want a shadow frame
-			local Lighting = game:GetService("Lighting")
-			local StarterGui = game:GetService("StarterGui")
-			local Bloom = Instance.new("BloomEffect")
-			local Blur = Instance.new("BlurEffect")
-			local ColorCor = Instance.new("ColorCorrectionEffect")
-			local SunRays = Instance.new("SunRaysEffect")
-			local Sky = Instance.new("Sky")
-			local Atm = Instance.new("Atmosphere")
-			for i, v in pairs(Lighting:GetChildren()) do
-				if v then
-					v:Destroy()
-				end
-			end
-			Bloom.Parent = Lighting
-			Blur.Parent = Lighting
-			ColorCor.Parent = Lighting
-			SunRays.Parent = Lighting
-			Sky.Parent = Lighting
-			Atm.Parent = Lighting
-			if Vignette == true then
-				local Gui = Instance.new("ScreenGui")
-				Gui.Parent = StarterGui
-				Gui.IgnoreGuiInset = true
-				local ShadowFrame = Instance.new("ImageLabel")
-				ShadowFrame.Parent = Gui
-				ShadowFrame.AnchorPoint = Vector2.new(0.5,1)
-				ShadowFrame.Position = UDim2.new(0.5,0,1,0)
-				ShadowFrame.Size = UDim2.new(1,0,1.05,0)
-				ShadowFrame.BackgroundTransparency = 1
-				ShadowFrame.Image = "rbxassetid://4576475446"
-				ShadowFrame.ImageTransparency = 0.3
-				ShadowFrame.ZIndex = 10
-			end
-			Bloom.Intensity = 0.3
-			Bloom.Size = 10
-			Bloom.Threshold = 0.8
-			Blur.Size = 5
-			ColorCor.Brightness = 0.1
-			ColorCor.Contrast = 0.5
-			ColorCor.Saturation = -0.3
-			ColorCor.TintColor = Color3.fromRGB(255, 235, 203)
-			SunRays.Intensity = 0.075
-			SunRays.Spread = 0.727
-			Sky.SkyboxBk = "http://www.roblox.com/asset/?id=151165214"
-			Sky.SkyboxDn = "http://www.roblox.com/asset/?id=151165197"
-			Sky.SkyboxFt = "http://www.roblox.com/asset/?id=151165224"
-			Sky.SkyboxLf = "http://www.roblox.com/asset/?id=151165191"
-			Sky.SkyboxRt = "http://www.roblox.com/asset/?id=151165206"
-			Sky.SkyboxUp = "http://www.roblox.com/asset/?id=151165227"
-			Sky.SunAngularSize = 10
-			Lighting.Ambient = Color3.fromRGB(2,2,2)
-			Lighting.Brightness = 2.25
-			Lighting.ColorShift_Bottom = Color3.fromRGB(0,0,0)
-			Lighting.ColorShift_Top = Color3.fromRGB(255, 247, 237)
-			Lighting.EnvironmentDiffuseScale = 0.2
-			Lighting.EnvironmentSpecularScale = 0.2
-			Lighting.GlobalShadows = true
-			Lighting.OutdoorAmbient = Color3.fromRGB(0,0,0)
-			Lighting.ShadowSoftness = 0.2
-			Lighting.ClockTime = 17
-			Lighting.GeographicLatitude = 45
-			Lighting.ExposureCompensation = 0.5
-			Atm.Density = 0.364
-			Atm.Offset = 0.556
-			Atm.Color = Color3.fromRGB(199, 175, 166)
-			Atm.Decay = Color3.fromRGB(44, 39, 33)
-			Atm.Glare = 0.36
-			Atm.Haze = 1.72
-		end)
-		UICorner_5.Parent = Evening
-		Close.Name = "Close"
-		Close.Parent = Frame
-		Close.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		Close.Position = UDim2.new(0.841975331, 0, 0, 0)
-		Close.Size = UDim2.new(0, 64, 0, 50)
-		Close.Font = Enum.Font.FredokaOne
-		Close.Text = "X"
-		Close.TextColor3 = Color3.fromRGB(255, 0, 0)
-		Close.TextScaled = true
-		Close.TextSize = 43.000
-		Close.TextWrapped = true
-		Close.MouseButton1Click:Connect(function()
-			Frame:Destroy()
-		end)
-		UICorner_6.Parent = Close
-		Credits.Name = "Credits"
-		Credits.Parent = Frame
-		Credits.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		Credits.Position = UDim2.new(0, 0, 0.930760145, 0)
-		Credits.Size = UDim2.new(0, 405, 0, 18)
-		Credits.Font = Enum.Font.FredokaOne
-		Credits.Text = "Made By armengeimsss"
-		Credits.TextColor3 = Color3.fromRGB(0, 0, 0)
-		Credits.TextScaled = true
-		Credits.TextSize = 14.000
-		Credits.TextWrapped = true
-		UICorner_7.CornerRadius = UDim.new(0, 15)
-		UICorner_7.Parent = Credits
-		Night.Name = "Night"
-		Night.Parent = Frame
-		Night.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		Night.Position = UDim2.new(0.530864179, 0, 0.459108353, 0)
-		Night.Size = UDim2.new(0, 170, 0, 50)
-		Night.Font = Enum.Font.FredokaOne
-		Night.Text = "Night"
-		Night.TextColor3 = Color3.fromRGB(0, 0, 0)
-		Night.TextSize = 43.000
-		Night.TextWrapped = true
-		Night.MouseButton1Click:Connect(function()
-			local Vignette = true -- change to false if you don't want a shadow frame
-			local Lighting = game:GetService("Lighting")
-			local StarterGui = game:GetService("StarterGui")
-			local Bloom = Instance.new("BloomEffect")
-			local Blur = Instance.new("BlurEffect")
-			local ColorCor = Instance.new("ColorCorrectionEffect")
-			local SunRays = Instance.new("SunRaysEffect")
-			local Sky = Instance.new("Sky")
-			local Atm = Instance.new("Atmosphere")
-			for i, v in pairs(Lighting:GetChildren()) do
-				if v then
-					v:Destroy()
-				end
-			end
-			Bloom.Parent = Lighting
-			Blur.Parent = Lighting
-			ColorCor.Parent = Lighting
-			SunRays.Parent = Lighting
-			Sky.Parent = Lighting
-			Atm.Parent = Lighting
-			if Vignette == true then
-				local Gui = Instance.new("ScreenGui")
-				Gui.Parent = StarterGui
-				Gui.IgnoreGuiInset = true
-				local ShadowFrame = Instance.new("ImageLabel")
-				ShadowFrame.Parent = Gui
-				ShadowFrame.AnchorPoint = Vector2.new(0.5,1)
-				ShadowFrame.Position = UDim2.new(0.5,0,1,0)
-				ShadowFrame.Size = UDim2.new(1,0,1.05,0)
-				ShadowFrame.BackgroundTransparency = 1
-				ShadowFrame.Image = "rbxassetid://4576475446"
-				ShadowFrame.ImageTransparency = 0.3
-				ShadowFrame.ZIndex = 10
-			end
-			Bloom.Intensity = 0.3
-			Bloom.Size = 10
-			Bloom.Threshold = 0.8
-			Blur.Size = 5
-			ColorCor.Brightness = 0.1
-			ColorCor.Contrast = 0.5
-			ColorCor.Saturation = -0.3
-			ColorCor.TintColor = Color3.fromRGB(242, 243, 243)
-			SunRays.Enabled = true
-			SunRays.Intensity = 0.075
-			SunRays.Spread = 0.727
-			Sky.MoonAngularSize =12
-			Sky.MoonTextureId = "rbxasset://sky/moon.jpg"
-			Sky.SkyboxBk = "http://www.roblox.com/asset/?id=411315762"
-			Sky.SkyboxDn = "http://www.roblox.com/asset/?id=411315762"
-			Sky.SkyboxFt = "http://www.roblox.com/asset/?id=411315762"
-			Sky.SkyboxLf = "http://www.roblox.com/asset/?id=411315762"
-			Sky.SkyboxRt = "http://www.roblox.com/asset/?id=411315762"
-			Sky.SkyboxUp = "http://www.roblox.com/asset/?id=411315762"
-			Sky.StarCount = 5000
-			Sky.SunAngularSize = 10
-			Lighting.Ambient = Color3.fromRGB(33, 33, 33)
-			Lighting.Brightness = 3.25
-			Lighting.ColorShift_Bottom = Color3.fromRGB(0,0,0)
-			Lighting.ColorShift_Top = Color3.fromRGB(255, 247, 237)
-			Lighting.EnvironmentDiffuseScale = 0.203
-			Lighting.EnvironmentSpecularScale = 0.255
-			Lighting.GlobalShadows = true
-			Lighting.OutdoorAmbient = Color3.fromRGB(51, 54, 67)
-			Lighting.ShadowSoftness = 0.19
-			Lighting.ClockTime = 20
-			Lighting.GeographicLatitude = -15.12
-			Lighting.ExposureCompensation = 0.85
-			Atm.Density = 0.264
-			Atm.Offset = 0.156
-			Atm.Color = Color3.fromRGB(175, 221, 255)
-			Atm.Decay = Color3.fromRGB(13, 105, 172)
-			Atm.Glare = 0.36
-			Atm.Haze = 1.72
-		end)
-		UICorner_8.Parent = Night
-		Stop.Name = "Stop"
-		Stop.Parent = Frame
-		Stop.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		Stop.Position = UDim2.new(0.0493827164, 0, 0.691932738, 0)
-		Stop.Size = UDim2.new(0, 365, 0, 50)
-		Stop.Font = Enum.Font.FredokaOne
-		Stop.Text = "Stop RTX (rejoin)"
-		Stop.TextColor3 = Color3.fromRGB(0, 0, 0)
-		Stop.TextScaled = true
-		Stop.TextSize = 43.000
-		Stop.TextWrapped = true
-		Stop.MouseButton1Click:Connect(function()
-			ts:Teleport(game.PlaceId, p)
-		end)
-	end)
-	UICorner_9.CornerRadius = UDim.new(0.5, 0)
-	UICorner_9.Parent = RTX
-	AntiAfk.Name = "AntiAfk"
-	AntiAfk.Parent = main
-	AntiAfk.BackgroundColor3 = Color3.fromRGB(234, 234, 234)
-	AntiAfk.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	AntiAfk.BorderSizePixel = 0
-	AntiAfk.Position = UDim2.new(0.668369412, 0, 0.232798934, 0)
-	AntiAfk.Size = UDim2.new(0, 137, 0, 50)
-	AntiAfk.Font = Enum.Font.SourceSansBold
-	AntiAfk.Text = "Anti Afk"
-	AntiAfk.TextColor3 = Color3.fromRGB(100, 100, 100)
-	AntiAfk.TextSize = 22.000
-	AntiAfk.MouseButton1Down:Connect(function()
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/evxncodes/mainroblox/main/anti-afk", true))()
-	end)
-	UICorner_10.CornerRadius = UDim.new(0.5, 0)
-	UICorner_10.Parent = AntiAfk
-	Highlights.Name = "Highlights"
-	Highlights.Parent = main
-	Highlights.BackgroundColor3 = Color3.fromRGB(234, 234, 234)
-	Highlights.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	Highlights.BorderSizePixel = 0
-	Highlights.Position = UDim2.new(0.348285586, 0, 0.232798934, 0)
-	Highlights.Size = UDim2.new(0, 137, 0, 50)
-	Highlights.Font = Enum.Font.SourceSansBold
-	Highlights.Text = "Highlights"
-	Highlights.TextColor3 = Color3.fromRGB(100, 100, 100)
-	Highlights.TextSize = 22.000
-	Highlights.MouseButton1Down:Connect(function()
-		_G.FriendColor = Color3.fromRGB(0, 0, 255)
-		_G.EnemyColor = Color3.fromRGB(255, 0, 0)
-		_G.UseTeamColor = true
-		--------------------------------------------------------------------
-		local Holder = Instance.new("Folder", game.CoreGui)
-		Holder.Name = "ESP"
-		local Box = Instance.new("BoxHandleAdornment")
-		Box.Name = "nilBox"
-		Box.Size = Vector3.new(1, 2, 1)
-		Box.Color3 = Color3.new(100 / 255, 100 / 255, 100 / 255)
-		Box.Transparency = 0.7
-		Box.ZIndex = 0
-		Box.AlwaysOnTop = false
-		Box.Visible = false
-		local NameTag = Instance.new("BillboardGui")
-		NameTag.Name = "nilNameTag"
-		NameTag.Enabled = false
-		NameTag.Size = UDim2.new(0, 200, 0, 50)
-		NameTag.AlwaysOnTop = true
-		NameTag.StudsOffset = Vector3.new(0, 1.8, 0)
-		local Tag = Instance.new("TextLabel", NameTag)
-		Tag.Name = "Tag"
-		Tag.BackgroundTransparency = 1
-		Tag.Position = UDim2.new(0, -50, 0, 0)
-		Tag.Size = UDim2.new(0, 300, 0, 20)
-		Tag.TextSize = 15
-		Tag.TextColor3 = Color3.new(100 / 255, 100 / 255, 100 / 255)
-		Tag.TextStrokeColor3 = Color3.new(0 / 255, 0 / 255, 0 / 255)
-		Tag.TextStrokeTransparency = 0.4
-		Tag.Text = "nil"
-		Tag.Font = Enum.Font.SourceSansBold
-		Tag.TextScaled = false
-		local LoadCharacter = function(v)
-			repeat wait() until v.Character ~= nil
-			v.Character:WaitForChild("Humanoid")
-			local vHolder = Holder:FindFirstChild(v.Name)
-			vHolder:ClearAllChildren()
-			local b = Box:Clone()
-			b.Name = v.Name .. "Box"
-			b.Adornee = v.Character
-			b.Parent = vHolder
-			local t = NameTag:Clone()
-			t.Name = v.Name .. "NameTag"
-			t.Enabled = true
-			t.Parent = vHolder
-			t.Adornee = v.Character:WaitForChild("Head", 5)
-			if not t.Adornee then
-				return UnloadCharacter(v)
-			end
-			t.Tag.Text = v.Name
-			b.Color3 = Color3.new(v.TeamColor.r, v.TeamColor.g, v.TeamColor.b)
-			t.Tag.TextColor3 = Color3.new(v.TeamColor.r, v.TeamColor.g, v.TeamColor.b)
-			local Update
-			local UpdateNameTag = function()
-				if not pcall(function()
-						v.Character.Humanoid.DisplayDistanceType = Enum.HumanoidDisplayDistanceType.None
-						local maxh = math.floor(v.Character.Humanoid.MaxHealth)
-						local h = math.floor(v.Character.Humanoid.Health)
-					end) then
-					Update:Disconnect()
-				end
-			end
-			UpdateNameTag()
-			Update = v.Character.Humanoid.Changed:Connect(UpdateNameTag)
+	end
+	return str
+end
+-----------------------------
+--------Actual Stuff:--------
+-----------------------------
+local AimbotSG_Name = "$?8??4V32HTT?B?T17O9IA282??I6A"
+local valid = nil
+if (settings.Binds.Aimbot and settings.Binds.Hide) then
+	valid = true
+	for i,v in pairs(settings) do
+		if (v == nil) then
+			valid = false
+			break
 		end
-		local UnloadCharacter = function(v)
-			local vHolder = Holder:FindFirstChild(v.Name)
-			if vHolder and (vHolder:FindFirstChild(v.Name .. "Box") ~= nil or vHolder:FindFirstChild(v.Name .. "NameTag") ~= nil) then
-				vHolder:ClearAllChildren()
-			end
-		end
-		local LoadPlayer = function(v)
-			local vHolder = Instance.new("Folder", Holder)
-			vHolder.Name = v.Name
-			v.CharacterAdded:Connect(function()
-				pcall(LoadCharacter, v)
-			end)
-			v.CharacterRemoving:Connect(function()
-				pcall(UnloadCharacter, v)
-			end)
-			v.Changed:Connect(function(prop)
-				if prop == "TeamColor" then
-					UnloadCharacter(v)
-					wait()
-					LoadCharacter(v)
-				end
-			end)
-			LoadCharacter(v)
-		end
-		local UnloadPlayer = function(v)
-			UnloadCharacter(v)
-			local vHolder = Holder:FindFirstChild(v.Name)
-			if vHolder then
-				vHolder:Destroy()
-			end
-		end
-		for i,v in pairs(game:GetService("Players"):GetPlayers()) do
-			spawn(function() pcall(LoadPlayer, v) end)
-		end
-		game:GetService("Players").PlayerAdded:Connect(function(v)
-			pcall(LoadPlayer, v)
-		end)
-		game:GetService("Players").PlayerRemoving:Connect(function(v)
-			pcall(UnloadPlayer, v)
-		end)
-		game:GetService("Players").LocalPlayer.NameDisplayDistance = 0
-		if _G.Reantheajfdfjdgs then
+	end
+end
+if (valid) then
+if (game.CoreGui:FindFirstChild(AimbotSG_Name)) then
+	warn("Attempted to open another aimbot GUI again!")
+	return
+end
+--=========================================================--
+local aimKey = settings.Binds.Aimbot:lower()
+local hideKey = settings.Binds.Hide:lower()
+-- Instances:
+local Title_Frame = Instance.new("Frame")
+local Title_Label = Instance.new("TextLabel")
+local Exit_BTN = Instance.new("TextButton")
+local Minimize_BTN = Instance.new("TextButton")
+local Aimbot_Frame = Instance.new("Frame")
+local HoldKey_CB = Instance.new("TextButton")
+local TeamCheck_CB = Instance.new("TextButton")
+local AimbotKey_TB = Instance.new("TextBox")
+local AimbotKey_Label = Instance.new("TextLabel")
+local HoldKey_Label = Instance.new("TextLabel")
+local CyclePart_BTN = Instance.new("TextButton")
+local Part_Label = Instance.new("TextLabel")
+local TeamCheck_Label = Instance.new("TextLabel")
+local Status_Label = Instance.new("TextLabel")
+--Properties:
+Aimbot_SG.Name = AimbotSG_Name
+Aimbot_SG.Parent = game:WaitForChild("CoreGui")
+Aimbot_SG.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+Aimbot_SG.ResetOnSpawn = false
+Title_Frame.Name = getrandomstring()
+Title_Frame.Parent = Aimbot_SG
+Title_Frame.BackgroundColor3 = settings.Color.Border
+Title_Frame.BorderSizePixel = 0
+Title_Frame.Position = UDim2.new(0.0216195825, 0, 0.254411727, 0)
+Title_Frame.Size = UDim2.new(0, 225, 0, 25)
+Title_Frame.Active = true
+Title_Frame.Draggable = true
+Title_Label.Name = getrandomstring()
+Title_Label.Parent = Title_Frame
+Title_Label.BackgroundColor3 = settings.Color.Border
+Title_Label.BorderSizePixel = 0
+Title_Label.Position = UDim2.new(-0.0266666673, 0, 0, 0)
+Title_Label.Size = UDim2.new(0, 175, 0, 25)
+Title_Label.Font = Enum.Font.SourceSans
+Title_Label.Text = "JD Aimbot"
+Title_Label.TextColor3 = settings.Color.Text
+Title_Label.TextScaled = true
+Title_Label.TextSize = 14.000
+Title_Label.TextWrapped = true
+Exit_BTN.Name = getrandomstring()
+Exit_BTN.Parent = Title_Frame
+Exit_BTN.BackgroundColor3 = settings.Color.Border
+Exit_BTN.BorderColor3 = Color3.fromRGB(27, 42, 53)
+Exit_BTN.BorderSizePixel = 0
+Exit_BTN.Position = UDim2.new(0.884444475, 0, 0, 0)
+Exit_BTN.Size = UDim2.new(0, 25, 0, 25)
+Exit_BTN.Font = Enum.Font.SourceSans
+Exit_BTN.Text = "X"
+Exit_BTN.TextColor3 = settings.Color.Text
+Exit_BTN.TextScaled = true
+Exit_BTN.TextSize = 14.000
+Exit_BTN.TextWrapped = true
+Minimize_BTN.Name = getrandomstring()
+Minimize_BTN.Parent = Title_Frame
+Minimize_BTN.BackgroundColor3 = settings.Color.Border
+Minimize_BTN.BorderColor3 = Color3.fromRGB(27, 42, 53)
+Minimize_BTN.BorderSizePixel = 0
+Minimize_BTN.Position = UDim2.new(0.773333371, 0, 0, 0)
+Minimize_BTN.Size = UDim2.new(0, 25, 0, 25)
+Minimize_BTN.Font = Enum.Font.SourceSans
+Minimize_BTN.Text = "-"
+Minimize_BTN.TextColor3 = settings.Color.Text
+Minimize_BTN.TextScaled = true
+Minimize_BTN.TextSize = 14.000
+Minimize_BTN.TextWrapped = true
+Aimbot_Frame.Name = getrandomstring()
+Aimbot_Frame.Parent = Title_Frame
+Aimbot_Frame.BackgroundColor3 = settings.Color.Background
+Aimbot_Frame.BorderSizePixel = 0
+Aimbot_Frame.Position = UDim2.new(-0.0266666673, 0, 0.976347685, 0)
+Aimbot_Frame.Size = UDim2.new(0, 230, 0, 216)
+--[[
+HoldKey_CB.Instance.Name = "lol"
+HoldKey_CB.Instance.Parent = Aimbot_Frame
+HoldKey_CB.Instance.BackgroundColor3 = settings.Color.CheckboxOff
+HoldKey_CB.Instance.BorderColor3 = settings.Color.Border
+HoldKey_CB.Instance.Position = UDim2.new(0.0400000066, 0, 0.474999994, 0)
+HoldKey_CB.Instance.Size = UDim2.new(0, 25, 0, 25)
+HoldKey_CB.Instance.Font = Enum.Font.SourceSans
+HoldKey_CB.Instance.Text = ""
+HoldKey_CB.Instance.TextColor3 = Color3.fromRGB(0, 0, 0)
+HoldKey_CB.Instance.TextSize = 14.000
+]]--
+--
+HoldKey_CB.Name = getrandomstring()
+HoldKey_CB.Parent = Aimbot_Frame
+HoldKey_CB.BackgroundColor3 = settings.Color.CheckboxOff
+HoldKey_CB.BorderColor3 = settings.Color.Border
+HoldKey_CB.Position = UDim2.new(0.0400000066, 0, 0.474999994, 0)
+HoldKey_CB.Size = UDim2.new(0, 25, 0, 25)
+HoldKey_CB.Font = Enum.Font.SourceSans
+HoldKey_CB.Text = ""
+HoldKey_CB.TextColor3 = Color3.fromRGB(0, 0, 0)
+HoldKey_CB.TextSize = 14.000
+--
+TeamCheck_CB.Name = getrandomstring()
+TeamCheck_CB.Parent = Aimbot_Frame
+TeamCheck_CB.BackgroundColor3 = settings.Color.CheckboxOff
+TeamCheck_CB.BorderColor3 = settings.Color.Border
+TeamCheck_CB.Position = UDim2.new(0.0400000066, 0, 0.637500048, 0)
+TeamCheck_CB.Size = UDim2.new(0, 25, 0, 25)
+TeamCheck_CB.Font = Enum.Font.SourceSans
+TeamCheck_CB.Text = ""
+TeamCheck_CB.TextColor3 = Color3.fromRGB(0, 0, 0)
+TeamCheck_CB.TextSize = 14.000
+AimbotKey_TB.Name = getrandomstring()
+AimbotKey_TB.Parent = Aimbot_Frame
+AimbotKey_TB.BackgroundColor3 = settings.Color.Text
+AimbotKey_TB.Position = UDim2.new(0.0400000066, 0, 0.0620370433, 0)
+AimbotKey_TB.Size = UDim2.new(0, 25, 0, 25)
+AimbotKey_TB.Font = Enum.Font.SourceSans
+AimbotKey_TB.Text = aimKey
+AimbotKey_TB.TextColor3 = Color3.fromRGB(0, 0, 0)
+AimbotKey_TB.TextSize = 17.000
+AimbotKey_Label.Name = getrandomstring()
+AimbotKey_Label.Parent = Aimbot_Frame
+AimbotKey_Label.BackgroundColor3 = settings.Color.Background
+AimbotKey_Label.BorderSizePixel = 0
+AimbotKey_Label.Position = UDim2.new(0.186666653, 0, 0.0620370433, 0)
+AimbotKey_Label.Size = UDim2.new(0, 180, 0, 25)
+AimbotKey_Label.Font = Enum.Font.SourceSans
+AimbotKey_Label.Text = "Aimbot Key: "..aimKey
+AimbotKey_Label.TextColor3 = settings.Color.Text
+AimbotKey_Label.TextSize = 23.000
+AimbotKey_Label.TextWrapped = true
+AimbotKey_Label.TextXAlignment = Enum.TextXAlignment.Left
+HoldKey_Label.Name = getrandomstring()
+HoldKey_Label.Parent = Aimbot_Frame
+HoldKey_Label.BackgroundColor3 = settings.Color.Background
+HoldKey_Label.BorderSizePixel = 0
+HoldKey_Label.Position = UDim2.new(0.186666653, 0, 0.474999994, 0)
+HoldKey_Label.Size = UDim2.new(0, 180, 0, 25)
+HoldKey_Label.Font = Enum.Font.SourceSans
+HoldKey_Label.Text = "Hold Key"
+HoldKey_Label.TextColor3 = settings.Color.Text
+HoldKey_Label.TextSize = 23.000
+HoldKey_Label.TextWrapped = true
+HoldKey_Label.TextXAlignment = Enum.TextXAlignment.Left
+CyclePart_BTN.Name = getrandomstring()
+CyclePart_BTN.Parent = Aimbot_Frame
+CyclePart_BTN.BackgroundColor3 = settings.Color.Background
+CyclePart_BTN.BorderColor3 = settings.Color.Text
+CyclePart_BTN.Position = UDim2.new(0.0400000066, 0, 0.213888898, 0)
+CyclePart_BTN.Size = UDim2.new(0, 25, 0, 25)
+CyclePart_BTN.Font = Enum.Font.SourceSans
+CyclePart_BTN.Text = ""
+CyclePart_BTN.TextColor3 = Color3.fromRGB(0, 0, 0)
+CyclePart_BTN.TextSize = 14.000
+Part_Label.Name = getrandomstring()
+Part_Label.Parent = Aimbot_Frame
+Part_Label.BackgroundColor3 = settings.Color.Background
+Part_Label.BorderSizePixel = 0
+Part_Label.Position = UDim2.new(0.186666653, 0, 0.213888928, 0)
+Part_Label.Size = UDim2.new(0, 180, 0, 25)
+Part_Label.Font = Enum.Font.SourceSans
+Part_Label.Text = "Part: Head"
+Part_Label.TextColor3 = settings.Color.Text
+Part_Label.TextSize = 23.000
+Part_Label.TextWrapped = true
+Part_Label.TextXAlignment = Enum.TextXAlignment.Left
+TeamCheck_Label.Name = getrandomstring()
+TeamCheck_Label.Parent = Aimbot_Frame
+TeamCheck_Label.BackgroundColor3 = settings.Color.Background
+TeamCheck_Label.BorderSizePixel = 0
+TeamCheck_Label.Position = UDim2.new(0.186666653, 0, 0.637499988, 0)
+TeamCheck_Label.Size = UDim2.new(0, 180, 0, 25)
+TeamCheck_Label.Font = Enum.Font.SourceSans
+TeamCheck_Label.Text = "Team Check"
+TeamCheck_Label.TextColor3 = settings.Color.Text
+TeamCheck_Label.TextSize = 23.000
+TeamCheck_Label.TextWrapped = true
+TeamCheck_Label.TextXAlignment = Enum.TextXAlignment.Left
+Status_Label.Name = getrandomstring()
+Status_Label.Parent = Aimbot_Frame
+Status_Label.BackgroundColor3 = settings.Color.Background
+Status_Label.BorderSizePixel = 0
+Status_Label.Position = UDim2.new(0.146666676, 0, 0.829166651, 0)
+Status_Label.Size = UDim2.new(0, 158, 0, 25)
+Status_Label.Font = Enum.Font.SourceSans
+Status_Label.Text = "Aimbot: Disabled"
+Status_Label.TextColor3 = settings.Color.Text
+Status_Label.TextSize = 25.000
+----------------------------------------
+------------Events and stuff:-----------
+----------------------------------------
+local HoldKey = settings.Aimbot.HoldKey
+local TeamCheck = settings.Aimbot.TeamCheck
+local AimbotStarted = nil
+if (HoldKey) then
+	HoldKey_CB.BackgroundColor3 = settings.Color.CheckboxOn
+end
+if (TeamCheck) then
+	TeamCheck_CB.BackgroundColor3 = settings.Color.CheckboxOn
+end
+function dispose()
+	if (AimbotStepped) then
+		AimbotStepped:Disconnect()
+	end
+	AimbotStarted = false
+	Status_Label.Text = "Aimbot: Disabled"
+end
+function playerRoot(playerChar)
+	if (playerChar) then --HRP/Torso: R6 | UpperTorso: R15
+		local root = playerChar:FindFirstChild("HumanoidRootPart") or playerChar:FindFirstChild("Torso") or
+			playerChar:FindFirstChild("UpperTorso")
+		return root
+	end
+	return nil
+end
+function getfovxyz(p0, p1, deg)
+	local x1, y1, z1 = p0:ToOrientation()
+	local cf = CFrame.new(p0.p, p1.p)
+	local x2, y2, z2 = cf:ToOrientation()
+	local d = math.deg
+	if (deg) then
+		return Vector3.new(d(x1 - x2), d(y1 - y2), d(z1 - z2))
+	else
+		return Vector3.new((x1 - x2), (y1 - y2), (z1 - z2))
+	end
+end
+function checkfov(part)
+	local fov = getfovxyz(Camera.CFrame, part.CFrame)
+	local angle = math.abs(fov.X) + math.abs(fov.Y)
+	return angle
+end
+Exit_BTN.MouseButton1Click:Connect(function()
+	dispose()
+	--InputBegan:Disconnect()
+	InputEnded:Disconnect()
+	BindPressed:Disconnect()
+	Aimbot_SG:Destroy()
+end)
+Minimize_BTN.MouseButton1Click:Connect(function()
+	if (Aimbot_Frame.Visible) then
+		Aimbot_Frame.Visible = false
+	else
+		Aimbot_Frame.Visible = true
+	end
+end)
+local TargetPart = 1 --1 = Head | 2 = Root
+local otherParts = {"Left Arm", "Right Arm", "Left Leg", "Right Leg"}
+CyclePart_BTN.MouseButton1Click:Connect(function()
+	if (TargetPart == 1) then
+		TargetPart = 2
+		Part_Label.Text = "Part: Root (Center)"
+	elseif (TargetPart == 6) then
+		TargetPart = 1
+		Part_Label.Text = "Part: Head"
+	else
+		TargetPart = TargetPart + 1
+		Part_Label.Text = "Part: "..otherParts[TargetPart - 2]
+	end
+end)
+AimbotKey_TB:GetPropertyChangedSignal("Text"):Connect(function()
+	local text = AimbotKey_TB.Text
+	if (text ~= "") then
+		local firstChar = text:sub(1,1):lower()
+		aimKey = firstChar
+		AimbotKey_TB.Text = firstChar
+		AimbotKey_Label.Text = "Aimbot Key: "..aimKey
+		AimbotKey_TB:ReleaseFocus()
+	end
+end)
+HoldKey_CB.MouseButton1Click:Connect(function()
+	if (HoldKey) then
+		HoldKey_CB.BackgroundColor3 = settings.Color.CheckboxOff
+		HoldKey = false
+	else
+		HoldKey_CB.BackgroundColor3 = settings.Color.CheckboxOn
+		HoldKey = true
+	end
+end)
+TeamCheck_CB.MouseButton1Click:Connect(function()
+	if (TeamCheck) then
+		TeamCheck_CB.BackgroundColor3 = settings.Color.CheckboxOff
+		TeamCheck = false
+	else
+		TeamCheck_CB.BackgroundColor3 = settings.Color.CheckboxOn
+		TeamCheck = true
+	end
+end)
+-----
+BindPressed = gPlr:GetMouse().KeyDown:Connect(function(key)
+	local keyValue = key:byte()
+	if (keyValue == aimKey:byte()) then
+		if (AimbotStarted and not HoldKey) then
+			dispose()
 			return
 		end
-		_G.Reantheajfdfjdgs = ":suifayhgvsdghfsfkajewfrhk321rk213kjrgkhj432rj34f67df"
-		local players = game:GetService("Players")
-		local plr = players.LocalPlayer
-		function Esp(target, color)
-			if target.Character then
-				if not target.Character:FindFirstChild("GetReal") then
-					local highlight = Instance.new("Highlight")
-					highlight.RobloxLocked = true
-					highlight.Name = "GetReal"
-					highlight.Adornee = target.Character
-					highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
-					highlight.FillColor = color
-					highlight.Parent = target.Character
+		---
+		local mouse, playerTarget = gPlr:GetMouse(), nil
+		if (settings.Aimbot.Closest) then
+			local plrChar = gPlr.Character
+			local plrRoot = playerRoot(plrChar)
+			if (not plrChar or not playerRoot(plrChar)) then
+				playerTarget = nil
+				return
+			end
+			local nearDist = math.huge
+			local nearest = nil
+			for _,target in pairs(gPlayers:GetPlayers()) do
+				if (target ~= gPlr and target.Character and playerRoot(target.Character)) then
+					local charDist = target:DistanceFromCharacter(plrRoot.Position)
+					if (charDist < nearDist) then
+						nearDist = charDist
+						nearest = target
+					end
+				end
+			end
+			playerTarget = nearest
+		else
+			if not (_G.aimDebug) then --If off, then defaults to closest player
+			--
+			local pos = mouse.Hit.p
+			local targetPos = Vector3.new(pos.X, pos.Y, pos.Z)
+			local nearDist = math.huge
+			local nearest = nil
+			for _,target in pairs(gPlayers:GetPlayers()) do
+				if (target ~= gPlr and target.Character and playerRoot(target.Character)) then
+					local charDist = target:DistanceFromCharacter(targetPos)
+					if (charDist < nearDist) then
+						nearDist = charDist
+						nearest = target
+					end
+				end
+			end
+			playerTarget = nearest
+			--
+			else --Experimental
+			--
+			local maxangle = math.rad(settings.Aimbot.FOV)
+			local closestToMouse = nil
+			for i,player in pairs(gPlayers:GetChildren()) do
+				local pChar = player.Character
+				if not (pChar) then return end
+				local part = playerRoot(pChar) or pChar:FindFirstChild("Head")
+				if (player.Name ~= plr and part) then
+					local angle = checkfov(part)
+					if (angle <= maxangle) then
+						maxangle = angle
+						closestToMouse = player
+					end
+                end
+			end
+			playerTarget = closestToMouse
+			--
+			end
+		end
+		if (playerTarget == nil) then return end
+		AimbotStepped = game:GetService("RunService").RenderStepped:Connect(function()
+			if (AimbotStarted and playerTarget and playerTarget.Character) then
+				local part = nil
+				--Check stuff
+				if (TargetPart == 1) then --Head
+					part = playerTarget.Character:FindFirstChild("Head")
+				elseif (TargetPart == 2) then --Root
+					part = playerRoot(playerTarget.Character)
 				else
-					target.Character.GetReal.FillColor = color
+					part = playerTarget.Character:FindFirstChild(otherParts[TargetPart - 2])
 				end
-			end
-		end
-		while task.wait() do
-			for i, v in pairs(players:GetPlayers()) do
-				if v ~= plr then
-					Esp(v, _G.UseTeamColor and v.TeamColor.Color or ((plr.TeamColor == v.TeamColor) and _G.FriendColor or _G.EnemyColor))
-				end
-			end
-		end
-	end)
-	UICorner_11.CornerRadius = UDim.new(0.5, 0)
-	UICorner_11.Parent = Highlights
-	Aimbot.Name = "Aimbot"
-	Aimbot.Parent = main
-	Aimbot.BackgroundColor3 = Color3.fromRGB(234, 234, 234)
-	Aimbot.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	Aimbot.BorderSizePixel = 0
-	Aimbot.Position = UDim2.new(0.0198337808, 0, 0.232798934, 0)
-	Aimbot.Size = UDim2.new(0, 137, 0, 50)
-	Aimbot.Font = Enum.Font.SourceSansBold
-	Aimbot.Text = "Aimbot (Press E)"
-	Aimbot.TextColor3 = Color3.fromRGB(100, 100, 100)
-	Aimbot.TextSize = 22.000
-	Aimbot.MouseButton1Down:Connect(function()
-		local plrs = game:GetService("Players")
-		local TeamBased = true ; local teambasedswitch = "o"
-		local presskeytoaim = true; local aimkey = "e"
-		local raycast = false
-		local espupdatetime = 5; autoesp = false
-		local lockaim = true; local lockangle = 5
-		--function findwat(folder, what)
-		--  for i, smth in pairs(folder:GetChildren()) do
-		--  if string.find(string.lower(tostring(smth)), string.lower(what)) then
-		--  return smth
-		--  end
-		--  end
-		--end
-		--
-		--local plrs = findwat(game, "Players")
-		local Gui = Instance.new("ScreenGui")
-		local Move = Instance.new("Frame")
-		local Main = Instance.new("Frame")
-		local EspStatus = Instance.new("TextLabel")
-		local st1 = Instance.new("TextLabel")
-		local st1_2 = Instance.new("TextLabel")
-		local st1_3 = Instance.new("TextLabel")
-		local Name = Instance.new("TextLabel")
-		--Properties:
-		Gui.Name = "Gui"
-		Gui.Parent = plrs.LocalPlayer:WaitForChild("PlayerGui")
-		Move.Name = "Move"
-		Move.Parent = Gui
-		Move.BackgroundColor3 = Color3.new(0.0431373, 1, 0.0745098)
-		Move.BackgroundTransparency = 1
-		Move.BorderSizePixel = 0
-		Move.Position = UDim2.new(0.005, 0,0.018, 0)
-		Move.Size = UDim2.new(0.28141585, 0, 0.0320388414, 0)
-		Main.Name = "Main"
-		Main.Parent = Move
-		Main.BackgroundColor3 = Color3.new(0.176471, 0.176471, 0.176471)
-		Main.BackgroundTransparency = 1
-		Main.Position = UDim2.new(0, 0, 0.995670795, 0)
-		Main.Size = UDim2.new(1.0000006, 0, 9.79697132, 0)
-		EspStatus.Name = "EspStatus"
-		EspStatus.Parent = Main
-		EspStatus.BackgroundColor3 = Color3.new(1, 1, 1)
-		EspStatus.BackgroundTransparency = 1
-		EspStatus.Size = UDim2.new(0.272955924, 0, 0.161862016, 0)
-		EspStatus.Font = Enum.Font.ArialBold
-		EspStatus.Text = " "
-		EspStatus.TextColor3 = Color3.new(0.0431373, 1, 0.0745098)
-		EspStatus.TextScaled = true
-		EspStatus.TextSize = 0
-		EspStatus.TextWrapped = true
-		st1.Name = "st1"
-		st1.Parent = Main
-		st1.BackgroundColor3 = Color3.new(1, 1, 1)
-		st1.BackgroundTransparency = 1
-		st1.Position = UDim2.new(0.271787882, 0, 0, 0)
-		st1.Size = UDim2.new(0.728211343, 0, 0.161862016, 0)
-		st1.Font = Enum.Font.ArialBold
-		st1.Text = " "..aimkey.." "
-		st1.TextColor3 = Color3.new(0.0431373, 1, 0.0745098)
-		st1.TextScaled = true
-		st1.TextSize = 0
-		st1.TextWrapped = true
-		st1_2.Name = "st1"
-		st1_2.Parent = Main
-		st1_2.BackgroundColor3 = Color3.new(1, 1, 1)
-		st1_2.BackgroundTransparency = 1
-		st1_2.Position = UDim2.new(0, 0, 0.375590861, 0)
-		st1_2.Size = UDim2.new(0.999999881, 0, 0.161862016, 0)
-		st1_2.Font = Enum.Font.ArialBold
-		st1_2.Text = " "
-		st1_2.TextColor3 = Color3.new(0.0431373, 1, 0.0745098)
-		st1_2.TextScaled = true
-		st1_2.TextSize = 0
-		st1_2.TextWrapped = true
-		st1_3.Name = "st1"
-		st1_3.Parent = Main
-		st1_3.BackgroundColor3 = Color3.new(1, 1, 1)
-		st1_3.BackgroundTransparency = 1
-		st1_3.Position = UDim2.new(0, 0, 0.18558608, 0)
-		st1_3.Size = UDim2.new(0.999999881, 0, 0.161862016, 0)
-		st1_3.Font = Enum.Font.ArialBold
-		st1_3.Text = " "
-		st1_3.TextColor3 = Color3.new(0.0431373, 1, 0.0745098)
-		st1_3.TextScaled = true
-		st1_3.TextSize = 0
-		st1_3.TextWrapped = true
-		local teambasedstatus = st1_3:Clone()
-		teambasedstatus.Parent = st1_3
-		teambasedstatus.TextScaled = true
-		teambasedstatus.Position = UDim2.new(0, 0,0.694, 0)
-		teambasedstatus.Text = tostring(TeamBased)
-		Name.Name = "Name"
-		Name.Parent = Move
-		Name.BackgroundColor3 = Color3.new(1, 1, 1)
-		Name.BackgroundTransparency = 1
-		Name.Size = UDim2.new(0.838, 0, 0.980000019, 0)
-		Name.Font = Enum.Font.Arial
-		Name.Text = " "
-		Name.TextColor3 = Color3.new(0, 0, 0)
-		Name.TextScaled = true
-		Name.TextSize = 0
-		Name.TextWrapped = true
-		Name.TextXAlignment = Enum.TextXAlignment.Left
-		-- Scripts:
-		local plrsforaim = {}
-		local lplr = game:GetService("Players").LocalPlayer
-		Move.Draggable = true
-		Gui.ResetOnSpawn = false
-		Gui.Name = "Chat"
-		Gui.DisplayOrder = 999
-		Gui.Parent = plrs.LocalPlayer.PlayerGui
-		f = {}
-		local espforlder
-		f.addesp = function()
-			--print("ESP ran")
-			if espforlder then
-			else
-				espforlder = Instance.new("Folder")
-				espforlder.Parent = game.Workspace.CurrentCamera
-			end
-			for i, v in pairs(espforlder:GetChildren()) do
-				v:Destroy()
-			end
-			for _, plr in pairs(plrs:GetChildren()) do
-				if plr.Character and plr.Character.Humanoid.Health > 0 and plr.Name ~= lplr.Name then
-					if TeamBased == true then
-						if plr.Team.Name ~= plrs.LocalPlayer.Team.Name  then
-							local e = espforlder:FindFirstChild(plr.Name)
-							if not e then
-								--print("Added esp for team based")
-								local bill = Instance.new("BillboardGui", espforlder)
-								bill.Name = plr.Name
-								bill.AlwaysOnTop = true
-								bill.Size = UDim2.new(1,0,1,0)
-								bill.Adornee = plr.Character.Head
-								local Frame = Instance.new('Frame',bill)
-								Frame.Active = true
-								Frame.BackgroundColor3 = Color3.new(0/255,255/255,0/255)
-								Frame.BackgroundTransparency = 0
-								Frame.BorderSizePixel = 0
-								Frame.AnchorPoint = Vector2.new(.5, .5)
-								Frame.Position = UDim2.new (0.5,0,0.5,0)
-								Frame.Size = UDim2.new (1,0,1,0)
-								Frame.Rotation = 0
-								plr.Character.Humanoid.Died:Connect(function()
-									bill:Destroy()
-								end)
-							end
+				--Actual stuff now
+				if (part) then
+					if (TeamCheck) then
+						if (playerTarget.Team ~= gPlr.Team) then
+							Camera.CoordinateFrame = CFrame.new(Camera.CoordinateFrame.p, part.CFrame.p)
 						end
 					else
-						local e = espforlder:FindFirstChild(plr.Name)
-						if not e then
-							--print("Added esp")
-							local bill = Instance.new("BillboardGui", espforlder)
-							bill.Name = plr.Name
-							bill.AlwaysOnTop = true
-							bill.Size = UDim2.new(1,0,1,0)
-							bill.Adornee = plr.Character.Head
-							local Frame = Instance.new('Frame',bill)
-							Frame.Active = true
-							Frame.BackgroundColor3 = Color3.new(0/255,255/255,0/255)
-							Frame.BackgroundTransparency = 0
-							Frame.BorderSizePixel = 0
-							Frame.AnchorPoint = Vector2.new(.5, .5)
-							Frame.Position = UDim2.new (0.5,0,0.5,0)
-							Frame.Size = UDim2.new (1,0,1,0)
-							Frame.Rotation = 0
-							plr.Character.Humanoid.Died:Connect(function()
-								bill:Destroy()
-							end)
-						end
-					end
-				end
-			end
-		end
-		local cam = game.Workspace.CurrentCamera
-		local mouse = lplr:GetMouse()
-		local switch = false
-		local key = "k"
-		local aimatpart = nil
-		mouse.KeyDown:Connect(function(a)
-			if a == "t" then
-				print("worked1")
-				f.addesp()
-			elseif a == "u" then
-				if raycast == true then
-					raycast = false
-				else
-					raycast = true
-				end
-			elseif a == "l" then
-				if autoesp == false then
-					autoesp = true
-				else
-					autoesp = false
-				end
-			end
-			if a == "j" then
-				if mouse.Target then
-					mouse.Target:Destroy()
-				end
-			end
-			if a == key then
-				if switch == false then
-					switch = true
-				else
-					switch = false
-					if aimatpart ~= nil then
-						aimatpart = nil
-					end
-				end
-			elseif a == teambasedswitch then
-				if TeamBased == true then
-					TeamBased = false
-					teambasedstatus.Text = tostring(TeamBased)
-				else
-					TeamBased = true
-					teambasedstatus.Text = tostring(TeamBased)
-				end
-			elseif a == aimkey then
-				if not aimatpart then
-					local maxangle = math.rad(20)
-					for i, plr in pairs(plrs:GetChildren()) do
-						if plr.Name ~= lplr.Name and plr.Character and plr.Character.Head and plr.Character.Humanoid and plr.Character.Humanoid.Health > 1 then
-							if TeamBased == true then
-								if plr.Team.Name ~= lplr.Team.Name then
-									local an = checkfov(plr.Character.Head)
-									if an < maxangle then
-										maxangle = an
-										aimatpart = plr.Character.Head
-									end
-								end
-							else
-								local an = checkfov(plr.Character.Head)
-								if an < maxangle then maxangle = an aimatpart = plr.Character.Head end print(plr) end plr.Character.Humanoid.Died:Connect(function() if aimatpart.Parent == plr.Character or aimatpart == nil then aimatpart = nil end end) end end else aimatpart = nil end end end) function getfovxyz (p0, p1, deg) local x1, y1, z1 = p0:ToOrientation() local cf = CFrame.new(p0.p, p1.p) local x2, y2, z2 = cf:ToOrientation() --local d = math.deg if deg then --return Vector3.new(d(x1-x2), d(y1-y2), d(z1-z2)) else return Vector3.new((x1-x2), (y1-y2), (z1-z2)) end end function getaimbotplrs() plrsforaim = {} for i, plr in pairs(plrs:GetChildren()) do if plr.Character and plr.Character.Humanoid and plr.Character.Humanoid.Health > 0 and plr.Name ~= lplr.Name and plr.Character.Head then
-					if TeamBased == true then
-						if plr.Team.Name ~= lplr.Team.Name then
-							local cf = CFrame.new(game.Workspace.CurrentCamera.CFrame.p, plr.Character.Head.CFrame.p)
-							local r = Ray.new(cf, cf.LookVector * 10000)
-							local ign = {}
-							for i, v in pairs(plrs.LocalPlayer.Character:GetChildren()) do
-								if v:IsA("BasePart") then
-									table.insert(ign , v)
-								end
-							end
-							local obj = game.Workspace:FindPartOnRayWithIgnoreList(r, ign)
-							if obj.Parent == plr.Character and obj.Parent ~= lplr.Character then
-								table.insert(plrsforaim, obj)
-							end
-						end
-					else
-						local cf = CFrame.new(game.Workspace.CurrentCamera.CFrame.p, plr.Character.Head.CFrame.p)
-						local r = Ray.new(cf, cf.LookVector * 10000)
-						local ign = {}
-						for i, v in pairs(plrs.LocalPlayer.Character:GetChildren()) do
-							if v:IsA("BasePart") then
-								table.insert(ign , v)
-							end
-						end
-						local obj = game.Workspace:FindPartOnRayWithIgnoreList(r, ign)
-						if obj.Parent == plr.Character and obj.Parent ~= lplr.Character then
-							table.insert(plrsforaim, obj)
-						end
-					end
-				end
-			end
-		end
-		function aimat(part)
-			cam.CFrame = CFrame.new(cam.CFrame.p, part.CFrame.p)
-		end
-		function checkfov (part)
-			local fov = getfovxyz(game.Workspace.CurrentCamera.CFrame, part.CFrame)
-			local angle = math.abs(fov.X) + math.abs(fov.Y)
-			return angle
-		end
-		game:GetService("RunService").RenderStepped:Connect(function()
-			if aimatpart then
-				aimat(aimatpart)
-				if aimatpart.Parent == plrs.LocalPlayer.Character then
-					aimatpart = nil
-				end
-			end
-			--  if switch == true then
-			--  local maxangle = 99999
-			--
-			--  --print("Loop")
-			--  if true and raycast == false then
-			--  for i, plr in pairs(plrs:GetChildren()) do
-			--  if plr.Name ~= lplr.Name and plr.Character and plr.Character.Head and plr.Character.Humanoid and plr.Character.Humanoid.Health > 1 then
-			--  if TeamBased then
-			--  if plr.Team.Name ~= lplr.Team.Name or plr.Team.TeamColor ~= lplr.Team.TeamColor then
-			--  local an = checkfov(plr.Character.Head)
-			--  if an < maxangle then
-			--  maxangle = an
-			--  aimatpart = plr.Character.Head
-			--  if an < lockangle then
-			--  break
-			--  end
-			--  end
-			--  end
-			--  else
-			--  local an = checkfov(plr.Character.Head)
-			--  if an < maxangle then
-			--  maxangle = an
-			--  aimatpart = plr.Character.Head
-			--  if an < lockangle then
-			--  break
-			--  end
-			--  end
-			--  end
-			--
-			--
-			--
-			--
-			--  end
-			--  end
-			--  elseif raycast == true then
-			--
-			--  end
-			if raycast == true and switch == false and not aimatpart then
-				getaimbotplrs()
-				aimatpart = nil
-				local maxangle = 999
-				for i, v in ipairs(plrsforaim) do
-					if v.Parent ~= lplr.Character then
-						local an = checkfov(v)
-						if an < maxangle and v ~= lplr.Character.Head then
-							maxangle = an
-							aimatpart = v
-							print(v:GetFullName())
-							v.Parent.Humanoid.Died:connect(function()
-								aimatpart = nil
-							end)
-						end
+						Camera.CoordinateFrame = CFrame.new(Camera.CoordinateFrame.p, part.CFrame.p)
 					end
 				end
 			end
 		end)
-		delay(0, function()
-			while wait(espupdatetime) do
-				if autoesp == true then
-					pcall(function()
-						f.addesp()
-					end)
-				end
-			end
-		end)
-	end)
-	UICorner_12.CornerRadius = UDim.new(0.5, 0)
-	UICorner_12.Parent = Aimbot
+		---
+		Status_Label.Text = "Aimbot: Enabled"
+		AimbotStarted = true
+	elseif (keyValue == hideKey:byte()) then
+		if (Aimbot_Frame.Visible) then
+			Aimbot_Frame.Visible = false
+		else
+			Aimbot_Frame.Visible = true
+		end
+	end
+end)
+InputEnded = gUIS.InputEnded:Connect(function(key)
+	if (HoldKey and key.KeyCode.Value == aimKey:byte()) then
+		dispose()
+	end
+end)
+print("Loaded JohnnyDoe's Aimbot GUI")
+else
+warn("Something in settings was invalid! Check your binds and color settings!")
+end
+Copied!
